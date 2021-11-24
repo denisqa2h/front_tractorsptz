@@ -63,7 +63,7 @@ export default {
     },
     async update(values) {
       await Axios
-          .patch(`http://127.0.0.1:8000/api/v1/ChangeRole/` + this.$store.state.userid, {'username': values.login}, {
+          .patch(`https://tractorsptz.herokuapp.com/api/v1/ChangeRole/` + this.$store.state.userid, {'username': values.login}, {
             headers: {
               Authorization: 'Bearer ' + localStorage.getItem('access')
             },

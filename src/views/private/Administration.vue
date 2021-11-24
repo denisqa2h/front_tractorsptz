@@ -52,7 +52,7 @@ export default {
   },
   mounted() {
     Axios
-        .get('http://127.0.0.1:8000/api/v1/all-profiles', {
+        .get('https://tractorsptz.herokuapp.com/api/v1/all-profiles', {
           headers: {
             Authorization: 'Bearer ' + localStorage.getItem('access')
           }
