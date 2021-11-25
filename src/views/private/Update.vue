@@ -89,12 +89,9 @@ export default {
     back() {
       this.$router.push('/administration')
     },
-    test(values) {
-
-    },
     async update(values) {
       await Axios
-          .patch(`https://tractorsptz.herokuapp.com/api/v1/ChangeRole/` + this.$store.state.userid, {'username': values.login, 'is_staff': this.$store.state.userstaff, 'is_superuser': this.$store.state.usersuperuser}, {
+          .patch(`http://127.0.0.1:8000/api/v1/ChangeRole/` + this.$store.state.userid, {'username': values.login, 'is_staff': this.$store.state.userstaff, 'is_superuser': this.$store.state.usersuperuser}, {
             headers: {
               Authorization: 'Bearer ' + localStorage.getItem('access')
             },
@@ -104,8 +101,8 @@ export default {
           }).catch((e) => {
             console.log('error', e);
             if(e === 'Error: Request failed with status code 401') {
-            localStorage.clear();
-            this.$router.push('/login');
+              localStorage.clear();
+              this.$router.push('/login');
             }
           });
     }

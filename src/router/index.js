@@ -38,6 +38,12 @@ const routes = [
     component: () => import('../views/private/Monitoring.vue'),
     meta: {title: 'Мониторинг', auth: true},
   },
+  {
+    path: '/accident',
+    name: 'accident',
+    component: () => import('../views/private/Updateaccidents.vue'),
+    meta: {title: 'Мониторинг', auth: true},
+  },
 ]
 
 const router = createRouter({
