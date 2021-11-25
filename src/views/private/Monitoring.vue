@@ -311,7 +311,7 @@ export default {
             }
           });
       Axios
-          .get('http://localhost:8000/api/v1/Accidents', {
+          .get('https://tractorsptz.herokuapp.com/api/v1/Accidents', {
             headers: {
               Authorization: 'Bearer ' + localStorage.getItem('access')
             }

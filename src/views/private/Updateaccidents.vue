@@ -72,7 +72,7 @@ export default {
     },
     async update() {
       await Axios
-          .patch(`http://localhost:8000/api/v1/Accidents/` + this.$store.state.accidentid, {'Description': this.Description}, {
+          .patch(`https://tractorsptz.herokuapp.com/api/v1/Accidents/` + this.$store.state.accidentid, {'Description': this.Description}, {
             headers: {
               Authorization: 'Bearer ' + localStorage.getItem('access')
             },
