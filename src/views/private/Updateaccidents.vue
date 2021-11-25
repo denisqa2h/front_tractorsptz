@@ -13,16 +13,28 @@
           <section>
             <table class="tableWidth">
               <tbody>
-                <tr>
-                  <td>Номер поста</td>
-                  <td>{{ this.$store.state.post }}</td>
-                </tr>
-                <tr>
-                  <td>Время фиксации</td>
-                  <td>{{ this.$store.state.fixtime }}</td>
-                </tr>
+              <tr>
+                <td>Номер поста</td>
+                <td>{{ this.$store.state.post }}</td>
+              </tr>
+              <tr>
+                <td>Время фиксации</td>
+                <td>{{ this.$store.state.fixtime }}</td>
+              </tr>
               </tbody>
             </table>
+            <div class="row">
+              <p class="flow-text">Время устранения</p>
+              <div class="input-field col s12">
+                <input class="textSize"  v-model="EndTime" type="datetime-local">
+              </div>
+            </div>
+            <div class="row">
+              <p class="flow-text">Тип происшествия</p>
+              <div class="accidents">
+                <div class="accident btn" v-for="value in type" @click="addType(value)">{{ value.TypeName }}</div>
+              </div>
+            </div>
             <div class="row">
               <p class="flow-text">Описание</p>
               <div class="input-field col s12">
@@ -54,7 +66,10 @@ export default {
     });
     return {
       schema,
-      Description: this.$store.state.description
+      Description: this.$store.state.description,
+      EndTime: this.$store.state.endtime,
+      type: null,
+      typeName: null,
     }
   },
   components: {
@@ -63,16 +78,37 @@ export default {
     ErrorMessage,
     NavBar
   },
+  mounted() {
+    Axios
+        .get('https://tractorsptz.herokuapp.com/api/v1/AccidentsType', {
+          headers: {
+            Authorization: 'Bearer ' + localStorage.getItem('access')
+          }
+        })
+        .then((response) => {
+          this.type = response.data;
+        })
+        .catch((e) => {
+          console.log('error ', e);
+          if(e === 'Error: Request failed with status code 401') {
+            localStorage.clear();
+            this.$router.push('/login');
+          }
+        });
+  },
   methods: {
     onClick() {
       this.visible = !this.visible;
+    },
+    addType(value) {
+      this.typeName = value.TypeName;
     },
     back() {
       this.$router.push('/monitoring');
     },
     async update() {
       await Axios
-          .patch(`https://tractorsptz.herokuapp.com/api/v1/Accidents/` + this.$store.state.accidentid, {'Description': this.Description}, {
+          .patch(`https://tractorsptz.herokuapp.com/api/v1/Accidents/` + this.$store.state.accidentid, {'Description': this.Description, 'EndTime': this.EndTime}, {
             headers: {
               Authorization: 'Bearer ' + localStorage.getItem('access')
             },
@@ -92,6 +128,21 @@ export default {
 </script>
 
 <style scoped>
+.accidents {
+  display: flex;
+}
+.accident {
+  margin-left: 10px;
+  background: white;
+  color: black;
+}
+
+.activeclass {
+  background: aqua;
+}
+.accident:first-child {
+  margin-left: 0;
+}
 .row{
   margin-top: 30px;
 }

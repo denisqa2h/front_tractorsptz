@@ -73,6 +73,9 @@ export default {
 .user-container {
   display: flex;
 }
+.user {
+  margin-left: 10px;
+}
 .rghtbtn {
   margin-left: 30px;
 }
