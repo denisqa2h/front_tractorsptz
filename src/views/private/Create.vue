@@ -33,6 +33,21 @@
                   <ErrorMessage name="passwordConfirmation" class="helper-text invalid" />
                 </div>
               </div>
+              <div>
+                <p class="flow-text">Выберите роль</p>
+                <div class="user-container change" @click="onSuperuser">
+                  <p class="text" v-if="is_superuser"><i class="material-icons yes">check</i>Администратор</p>
+                  <p class="text" v-if="!is_superuser">Администратор</p>
+                </div>
+                <div class="user-container change" @click="onStaff">
+                  <p class="text" v-if="is_staff"><i class="material-icons yes">check</i>Мастер</p>
+                  <p class="text" v-if="!is_staff">Мастер</p>
+                </div>
+                <div class="user-container change" @click="onGuest">
+                  <p class="text" v-if="guest"><i class="material-icons yes">check</i>Гость</p>
+                  <p class="text" v-if="!guest">Гость</p>
+                </div>
+              </div>
               <button class="green darken-3 btn">Сохранить</button>
             </Form>
             <button class="teal lighten-2 btn rghtbtn" @click="back">Отмена</button>
@@ -59,23 +74,41 @@ export default {
     });
     return {
       schema,
+      is_staff: false,
+      is_superuser: false,
+      guest: true
     }
   },
   components: {
     Field,
     Form,
     ErrorMessage,
-    NavBar
+    NavBar,
   },
   methods: {
     onClick() {
       this.visible = !this.visible;
     },
+    onSuperuser() {
+      this.is_superuser = !this.is_superuser;
+      this.is_staff = false;
+      this.guest = false;
+    },
+    onStaff() {
+      this.is_superuser = false;
+      this.is_staff = !this.is_staff;
+      this.guest = false;
+    },
+    onGuest() {
+      this.is_superuser = false;
+      this.is_staff = false;
+      this.guest = !this.guest;
+    },
     back() {
       this.$router.push('/administration')
     },
     async save(values) {
-      await Axios.post(`https://tractorsptz.herokuapp.com/auth/users/`, {'username': values.login, 'password': values.pass})
+      await Axios.post(`http://127.0.0.1:8000/auth/users/`, {'username': values.login, 'password': values.pass, 'is_staff': this.is_staff, 'is_superuser': this.is_superuser})
           .then((res) => {
             this.$router.push('/administration');
           })
@@ -103,5 +136,17 @@ export default {
 
 .user {
   margin-left: 10px;
+}
+
+.text{
+  font-size: 17px;
+}
+
+.yes{
+  color: #1b5e20;
+}
+
+.change{
+  cursor: pointer;
 }
 </style>

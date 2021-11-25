@@ -57,7 +57,7 @@ export default {
     },
     async remove() {
       await Axios
-          .delete(`https://tractorsptz.herokuapp.com/api/v1/DeleteUser/` + this.$store.state.userid, {headers: {Authorization: 'Bearer ' + localStorage.getItem('access')}})
+          .delete(`http://127.0.0.1:8000/api/v1/DeleteUser/` + this.$store.state.userid, {headers: {Authorization: 'Bearer ' + localStorage.getItem('access')}})
           .then(() => {
             this.$router.push('/administration');
           }).catch((e) => {

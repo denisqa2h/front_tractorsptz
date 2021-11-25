@@ -52,7 +52,7 @@ export default {
   },
   mounted() {
     Axios
-        .get('https://tractorsptz.herokuapp.com/api/v1/all-profiles', {
+        .get('http://127.0.0.1:8000/api/v1/all-profiles', {
           headers: {
             Authorization: 'Bearer ' + localStorage.getItem('access')
           }
@@ -78,6 +78,8 @@ export default {
    addID(value) {
       this.$store.state.userid = value.id;
       this.$store.state.userlogin = value.username;
+      this.$store.state.userstaff = value.is_staff;
+      this.$store.state.usersuperuser = value.is_superuser;
     },
   }
 }

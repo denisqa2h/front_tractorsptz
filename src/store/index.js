@@ -6,6 +6,8 @@ export default createStore({
     username: localStorage.getItem('username') || '',
     userlogin: null,
     userid: null,
+    userstaff: null,
+    usersuperuser: null,
     timer: '',
     token: localStorage.getItem('access') || '',
   },
