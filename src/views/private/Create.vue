@@ -108,7 +108,7 @@ export default {
       this.$router.push('/administration')
     },
     async save(values) {
-      await Axios.post(`http://127.0.0.1:8000/auth/users/`, {'username': values.login, 'password': values.pass, 'is_staff': this.is_staff, 'is_superuser': this.is_superuser})
+      await Axios.post(`https://tractorsptz.herokuapp.com/auth/users/`, {'username': values.login, 'password': values.pass, 'is_staff': this.is_staff, 'is_superuser': this.is_superuser})
           .then((res) => {
             this.$router.push('/administration');
           })

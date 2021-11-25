@@ -46,7 +46,7 @@ export default {
   },
   methods: {
     async onSubmit(values) {
-      await Axios.post(`http://127.0.0.1:8000/auth/jwt/create`, {'username': values.name.trim(), 'password': values.password.trim()})
+      await Axios.post(`https://tractorsptz.herokuapp.com/auth/jwt/create`, {'username': values.name.trim(), 'password': values.password.trim()})
           .then((res) => {
             this.$store.state.username = values.name;
             localStorage.setItem('username', values.name);
