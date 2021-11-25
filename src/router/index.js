@@ -33,6 +33,24 @@ const routes = [
     meta: {title: 'Удаление пользователя', auth: true},
   },
   {
+    path: '/createtype',
+    name: 'createtype',
+    component: () => import('../views/private/CreateType'),
+    meta: {title: 'Создание типа происшествий', auth: true},
+  },
+  {
+    path: '/updatetype',
+    name: 'updatetype',
+    component: () => import('../views/private/UpdateType'),
+    meta: {title: 'Редактирование типа происшествий', auth: true},
+  },
+  {
+    path: '/deletetype',
+    name: 'deletetype',
+    component: () => import('../views/private/DeleteType'),
+    meta: {title: 'Удаление типа происшествий', auth: true},
+  },
+  {
     path: '/monitoring',
     name: 'monitoring',
     component: () => import('../views/private/Monitoring.vue'),

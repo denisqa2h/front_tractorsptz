@@ -101,8 +101,8 @@ export default {
           }).catch((e) => {
             console.log('error', e);
             if(e === 'Error: Request failed with status code 401') {
-              localStorage.clear();
-              this.$router.push('/login');
+            localStorage.clear();
+            this.$router.push('/login');
             }
           });
     }

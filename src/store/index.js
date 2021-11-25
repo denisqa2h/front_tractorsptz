@@ -14,6 +14,8 @@ export default createStore({
     description: null,
     fixtime: null,
     endtime: null,
+    idtype: null,
+    typename: null,
     timer: '',
     token: localStorage.getItem('access') || '',
   },

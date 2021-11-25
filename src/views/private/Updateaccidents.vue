@@ -13,14 +13,14 @@
           <section>
             <table class="tableWidth">
               <tbody>
-              <tr>
-                <td>Номер поста</td>
-                <td>{{ this.$store.state.post }}</td>
-              </tr>
-              <tr>
-                <td>Время фиксации</td>
-                <td>{{ this.$store.state.fixtime }}</td>
-              </tr>
+                <tr>
+                  <td>Номер поста</td>
+                  <td>{{ this.$store.state.post }}</td>
+                </tr>
+                <tr>
+                  <td>Время фиксации</td>
+                  <td>{{ this.$store.state.fixtime }}</td>
+                </tr>
               </tbody>
             </table>
             <div class="row">

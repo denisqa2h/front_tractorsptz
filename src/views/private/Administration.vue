@@ -31,6 +31,35 @@
           </section>
         </div>
 
+        <div>
+          <div class="page-title">
+            <h3>Типы происшествий</h3>
+          </div>
+
+          <div class="page-title">
+            <button @click="onSubmitType()" class="waves-effect waves-light btn">Создание нового типа происшествий</button>
+          </div>
+
+          <section>
+            <table>
+              <thead>
+                <tr>
+                  <th>Номер типа происшествия</th>
+                  <th>Название типа происшествия</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="value in type">
+                  <td>{{ value.id }}</td>
+                  <td>{{ value.TypeName }}</td>
+                  <td><router-link to="/deletetype" class="secondary-content" @click="addType(value)"><i class="material-icons right delete">delete</i></router-link><router-link to="/updatetype" class="secondary-content" @click="addType(value)"><i class="material-icons update">border_color</i></router-link></td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+        </div>
+
       </div>
     </main>
   </div>
@@ -48,6 +77,7 @@ export default {
     return {
       info: null,
       test: null,
+      type: null
     }
   },
   mounted() {
@@ -67,6 +97,22 @@ export default {
             this.$router.push('/login');
           }
         });
+    Axios
+        .get('https://tractorsptz.herokuapp.com/api/v1/AccidentsType', {
+          headers: {
+            Authorization: 'Bearer ' + localStorage.getItem('access')
+          }
+        })
+        .then((response) => {
+          this.type = response.data;
+        })
+        .catch((e) => {
+          console.log('error ', e);
+          if(e === 'Error: Request failed with status code 401') {
+            localStorage.clear();
+            this.$router.push('/login');
+          }
+        });
   },
   methods: {
     onClick() {
@@ -75,12 +121,19 @@ export default {
     onSubmit() {
       this.$router.push('/create')
     },
+    onSubmitType() {
+      this.$router.push('/createtype')
+    },
    addID(value) {
       this.$store.state.userid = value.id;
       this.$store.state.userlogin = value.username;
       this.$store.state.userstaff = value.is_staff;
       this.$store.state.usersuperuser = value.is_superuser;
     },
+    addType(value) {
+      this.$store.state.idtype = value.id;
+      this.$store.state.typename = value.TypeName;
+    }
   }
 }
 </script>
